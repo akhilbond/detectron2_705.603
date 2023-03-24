@@ -354,7 +354,7 @@ class Visualizer:
 
     # TODO implement a fast, rasterized version using OpenCV
 
-    def __init__(self, img_rgb, metadata=None, scale=1.0, instance_mode=ColorMode.IMAGE):
+    def __init__(self, img_rgb, metadata=None, scale=1.0, instance_mode=ColorMode.SEGMENTATION):
         """
         Args:
             img_rgb: a numpy array of shape (H, W, C), where H and W correspond to
@@ -1147,24 +1147,27 @@ class Visualizer:
     Internal methods:
     """
 
+    # def _jitter(self, color):
+    #     """
+    #     Randomly modifies given color to produce a slightly different color than the color given.
+
+    #     Args:
+    #         color (tuple[double]): a tuple of 3 elements, containing the RGB values of the color
+    #             picked. The values in the list are in the [0.0, 1.0] range.
+
+    #     Returns:
+    #         jittered_color (tuple[double]): a tuple of 3 elements, containing the RGB values of the
+    #             color after being jittered. The values in the list are in the [0.0, 1.0] range.
+    #     """
+    #     color = mplc.to_rgb(color)
+    #     vec = np.random.rand(3)
+    #     # better to do it in another color space
+    #     vec = vec / np.linalg.norm(vec) * 0.5
+    #     res = np.clip(vec + color, 0, 1)
+    #     return tuple(res)
+
     def _jitter(self, color):
-        """
-        Randomly modifies given color to produce a slightly different color than the color given.
-
-        Args:
-            color (tuple[double]): a tuple of 3 elements, containing the RGB values of the color
-                picked. The values in the list are in the [0.0, 1.0] range.
-
-        Returns:
-            jittered_color (tuple[double]): a tuple of 3 elements, containing the RGB values of the
-                color after being jittered. The values in the list are in the [0.0, 1.0] range.
-        """
-        color = mplc.to_rgb(color)
-        vec = np.random.rand(3)
-        # better to do it in another color space
-        vec = vec / np.linalg.norm(vec) * 0.5
-        res = np.clip(vec + color, 0, 1)
-        return tuple(res)
+        return color
 
     def _create_grayscale_image(self, mask=None):
         """
